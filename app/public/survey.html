@@ -162,21 +162,21 @@
 
             $("#submit").on("click", function(event) {
                 event.preventDefault();
-                function validateForm() {
-                    var isValid = true;
+                function checkDone() {
+                    var completed = true;
                     $(".form-control").each(function() {
                         if ($(this).val() === "") {
-                            isValid = false;
+                            completed = false;
                         }
                     });
                     $(".chosen-select").each(function() {
                         if ($(this).val() === "") {
                         }
                     });
-                    return isValid;
+                    return completed;
                 }
-                if (validateForm()) {
-                    var userData = {
+                if (checkDone()) {
+                    var userInput = {
                         name: $("#name").val(),
                         photo: $("#photo").val(),
                         scores: [
@@ -191,7 +191,7 @@
                             $("#q9").val()
                         ]
                     };
-                    $.post("/api/friends", userData, function(data) {
+                    $.post("/api/friends", userInput, function(data) {
                         $("#match-name").text(data.name);
                         $("#match-img").attr("src", data.photo);
                         $("#results-modal").modal("toggle");
